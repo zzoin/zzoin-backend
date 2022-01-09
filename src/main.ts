@@ -10,6 +10,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as expressBasicAuth from 'express-basic-auth';
 import * as passport from 'passport';
 import * as cookieParser from 'cookie-parser';
+import * as session from 'express-session';
 import { HttpApiExceptionFilter } from './common/exceptions/http-api-exception.filter';
 
 class Application {
@@ -62,6 +63,13 @@ class Application {
       credentials: true,
     });
     this.server.use(cookieParser());
+    this.server.use(
+      session({
+        secret: process.env.SECRET_KEY,
+        resave: true,
+        saveUninitialized: false,
+      }),
+    );
     this.setUpBasicAuth();
     this.setUpOpenAPIMidleware();
     this.server.useGlobalPipes(
