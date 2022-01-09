@@ -1,5 +1,6 @@
 # ZZOIN BACKEND
 
+> node version : 14.17
 
 ## Config .env
 
