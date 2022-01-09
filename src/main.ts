@@ -51,11 +51,7 @@ class Application {
       this.server,
       SwaggerModule.createDocument(
         this.server,
-        new DocumentBuilder()
-          .setTitle('Yoon Sang Seok - API')
-          .setDescription('TypeORM In Nest')
-          .setVersion('0.0.1')
-          .build(),
+        new DocumentBuilder().setTitle('ZZOIN').setVersion('0.0.1').build(),
       ),
     );
   }
