@@ -1,7 +1,14 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+} from 'class-validator';
 import { CommonEntity } from '../common/entities/common.entity'; // ormconfig.json에서 파싱 가능하도록 상대 경로로 지정
 import { Column, Entity, Index } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { AuthProvider } from 'src/common/enums/auth-provider';
 
 @Index('email', ['email'], { unique: true })
 @Entity({
@@ -21,6 +28,18 @@ export class UserEntity extends CommonEntity {
   @Exclude()
   @Column({ type: 'varchar', nullable: false })
   password: string;
+
+  @IsString()
+  @Column({ type: 'varchar', nullable: true })
+  profileImageUrl: string;
+
+  @IsString()
+  @Column({ type: 'varchar', nullable: true })
+  bio: string;
+
+  @IsEnum(AuthProvider)
+  @Column({ type: 'varchar', default: AuthProvider.KAKAO })
+  authProvier: AuthProvider;
 
   @IsBoolean()
   @Column({ type: 'boolean', default: false })
