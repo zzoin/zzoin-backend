@@ -4,6 +4,12 @@ import * as Joi from "joi"
 import { AppController } from "./app.controller"
 import { PrismaService } from "./prisma.service"
 import { UsersModule } from "./users/users.module"
+import { ReviewsModule } from "./reviews/reviews.module"
+import { RestaurantsModule } from "./restaurants/restaurants.module"
+import { MenusModule } from "./restaurants/menus/menus.module"
+import { ImagesModule } from "./restaurants/images/images.module"
+import { OptionsModule } from "./restaurants/options/options.module"
+import { CategoriesModule } from "./restaurants/categories/categories.module"
 
 @Module({
   imports: [
@@ -20,6 +26,8 @@ import { UsersModule } from "./users/users.module"
       }),
     }),
     UsersModule,
+    ReviewsModule,
+    RestaurantsModule,
   ],
   controllers: [AppController],
   providers: [PrismaService],
