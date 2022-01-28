@@ -1,14 +1,5 @@
 {
-  "semi": true,
-  "singleQuote": true,
-
-  "trailingComma": "all",
-  "overrides": [
-    {
-      "files": "*.hbs",
-      "options": {
-        "singleQuote": false
-      }
-    }
-  ]
+  "semi": false,
+  "singleQuote": false,
+  "trailingComma": "all"
 }

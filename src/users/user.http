@@ -1,0 +1,28 @@
+@url = http://localhost:5001
+@jwt = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYTRiZTlhOC04YzMzLTQwYTEtOGYzZC1jNGQ3ZGM0MTdhZjciLCJpYXQiOjE2NDMzNzEzNzEsImV4cCI6MTY0MzQ1Nzc3MX0.98zWgORkdxnchiTCkjJvjlBN9vT_NxG0GaMC_yyLWCQ
+
+### 유저 인증 정보 가져오기
+GET {{url}}/users
+Set-Cookie: jwt={{jwt}}; Path=/; HttpOnly
+
+### 회원가입
+POST {{url}}/users
+Content-Type: application/json
+
+{
+    "email" : "amamov@kakao.com",
+    "username" : "kyle",
+    "password" : "1205"
+}
+
+### 로그인
+POST {{url}}/users/login
+Content-Type: application/json
+
+{
+    "email" : "amamov@kakao.com",
+    "password" : "1205"
+}
+
+### 로그아웃
+POST {{url}}/users/logout
