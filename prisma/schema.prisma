@@ -19,6 +19,7 @@ model User {
   bio             String       @default("") @db.VarChar(400)
   isAdmin         Boolean      @default(false)
   profileImageUrl String?
+  reviews         Review[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -26,5 +27,36 @@ model User {
 
   password String?
 
+
   @@map("USER")
+}
+
+model Review {
+  id           String     @id @default(uuid())
+  author       User       @relation(fields: [authorId], references: [id])
+  authorId     String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  content      String     @db.VarChar(500)
+  score        Int        @db.SmallInt()
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deleted   Boolean  @default(false)
+
+  @@map("REVIEW")
+}
+
+model Restaurant {
+  id      String   @id @default(uuid())
+  reviews Review[]
+
+  // TODO
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deleted   Boolean  @default(false)
+
+
+  @@map("RESTAURANT")
 }
