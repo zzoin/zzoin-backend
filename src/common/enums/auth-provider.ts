@@ -1,3 +1,3 @@
 export enum AuthProvider {
-  KAKAO = 'K',
+  KAKAO = "K",
 }
