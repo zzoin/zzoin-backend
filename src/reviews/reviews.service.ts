@@ -32,18 +32,36 @@ export class ReviewsService {
       await this.prisma.review.create({
         data: {
           ...createReviewDTO,
+          authorId,
         },
       })
     } catch (error) {
       throw new BadRequestException(error.message)
     }
   }
-  findAll() {
-    return `This action returns all reviews`
-  }
 
-  findOne(id: number) {
-    return `This action returns a #${id} review`
+  async findOne(id: string) {
+    const review = await this.prisma.review.findFirst({
+      where: { id },
+      select: {
+        id: true,
+        content: true,
+        score: true,
+        createdAt: true,
+        updatedAt: true,
+        deleted: true,
+        author: {
+          select: {
+            id: true,
+            email: true,
+            username: true,
+            profileImageUrl: true,
+          },
+        },
+      },
+    })
+
+    return review
   }
 
   update(id: number, updateReviewDTO: UpdateReviewDTO) {

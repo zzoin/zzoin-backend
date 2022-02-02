@@ -28,14 +28,9 @@ export class ReviewsController {
     return await this.reviewsService.create(userDTO, createReviewDTO)
   }
 
-  @Get()
-  findAll() {
-    return this.reviewsService.findAll()
-  }
-
   @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.reviewsService.findOne(+id)
+  async findOne(@Param("id") id: string) {
+    return await this.reviewsService.findOne(id)
   }
 
   @Patch(":id")
