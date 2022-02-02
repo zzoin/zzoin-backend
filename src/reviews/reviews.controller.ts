@@ -21,16 +21,16 @@ export class ReviewsController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async create(
+  create(
     @Body() createReviewDTO: CreateReviewDTO,
     @CurrentUser() userDTO: UserDTO,
   ) {
-    return await this.reviewsService.create(createReviewDTO, userDTO)
+    return this.reviewsService.create(createReviewDTO, userDTO)
   }
 
   @Get(":id")
-  async findOne(@Param("id") id: string) {
-    return await this.reviewsService.findOne(id)
+  findOne(@Param("id") id: string) {
+    return this.reviewsService.findOne(id)
   }
 
   @Patch(":id")

@@ -1,5 +1,4 @@
 import { Injectable, Logger, BadRequestException } from "@nestjs/common"
-import { Prisma } from "@prisma/client"
 import { CreateReviewDTO } from "./dto/create-review.dto"
 import { UpdateReviewDTO } from "./dto/update-review.dto"
 import { UserDTO } from "src/users/dtos/user.dto"
@@ -41,8 +40,8 @@ export class ReviewsService {
     }
   }
 
-  async findOne(id: string) {
-    const review = await this.prisma.review.findFirst({
+  findOne(id: string) {
+    return this.prisma.review.findFirst({
       where: { id },
       select: {
         id: true,
@@ -61,8 +60,6 @@ export class ReviewsService {
         },
       },
     })
-
-    return review
   }
 
   async update(id: string, updateReviewDTO: UpdateReviewDTO, userDTO: UserDTO) {
