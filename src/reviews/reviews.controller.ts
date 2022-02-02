@@ -34,8 +34,13 @@ export class ReviewsController {
   }
 
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updateReviewDTO: UpdateReviewDTO) {
-    return this.reviewsService.update(+id, updateReviewDTO)
+  @UseGuards(JwtAuthGuard)
+  async update(
+    @Param("id") id: string,
+    @Body() updateReviewDTO: UpdateReviewDTO,
+    @CurrentUser() userDTO: UserDTO,
+  ) {
+    return this.reviewsService.update(id, updateReviewDTO, userDTO)
   }
 
   @Delete(":id")

@@ -65,8 +65,30 @@ export class ReviewsService {
     return review
   }
 
-  async update(id: number, updateReviewDTO: UpdateReviewDTO) {
-    return `This action updates a #${id} review`
+  async update(id: string, updateReviewDTO: UpdateReviewDTO, userDTO: UserDTO) {
+    const { email } = userDTO
+
+    const { id: authorId } = await this.prisma.user.findFirst({
+      where: { email },
+    })
+
+    const review = await this.prisma.review.findFirst({
+      where: { id },
+    })
+
+    if (!review) throw new BadRequestException("리뷰가 존재하지 않습니다.")
+
+    if (review.authorId !== authorId)
+      throw new BadRequestException("해당 유저에게 리뷰 수정 권한이 없습니다.")
+
+    try {
+      await this.prisma.review.update({
+        where: { id },
+        data: updateReviewDTO,
+      })
+    } catch (error) {
+      throw new BadRequestException(error.message)
+    }
   }
 
   async remove(id: string, userDTO: UserDTO) {
@@ -80,21 +102,16 @@ export class ReviewsService {
       where: { authorId, id },
     })
 
-    if (!review) {
+    if (!review) throw new BadRequestException("리뷰가 존재하지 않습니다.")
+
+    if (review.authorId !== authorId)
       throw new BadRequestException("해당 유저에게 리뷰 삭제 권한이 없습니다.")
-    }
 
     try {
       await this.prisma.review.delete({
         where: { id },
       })
     } catch (error) {
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === "P2025") {
-          throw new BadRequestException("해당하는 리뷰를 찾을 수 없습니다.")
-        }
-      }
-
       throw new BadRequestException(error.message)
     }
   }
