@@ -1,0 +1,14 @@
+@url = http://localhost:5001
+
+@jwt = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYTRiZTlhOC04YzMzLTQwYTEtOGYzZC1jNGQ3ZGM0MTdhZjciLCJpYXQiOjE2NDMzNzEzNzEsImV4cCI6MTY0MzQ1Nzc3MX0.98zWgORkdxnchiTCkjJvjlBN9vT_NxG0GaMC_yyLWCQ
+
+### 리뷰 생성
+POST {{url}}/reviews
+Content-Type: application/json
+
+{
+  "restaurantId": "",
+  "authorId": "",
+  "content": "hello",
+  "score": 5
+}
