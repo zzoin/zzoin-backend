@@ -22,10 +22,10 @@ export class ReviewsController {
   @Post()
   @UseGuards(JwtAuthGuard)
   async create(
-    @CurrentUser() userDTO: UserDTO,
     @Body() createReviewDTO: CreateReviewDTO,
+    @CurrentUser() userDTO: UserDTO,
   ) {
-    return await this.reviewsService.create(userDTO, createReviewDTO)
+    return await this.reviewsService.create(createReviewDTO, userDTO)
   }
 
   @Get(":id")
@@ -39,7 +39,8 @@ export class ReviewsController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.reviewsService.remove(+id)
+  @UseGuards(JwtAuthGuard)
+  async remove(@Param("id") id: string, @CurrentUser() userDTO: UserDTO) {
+    return this.reviewsService.remove(id, userDTO)
   }
 }
