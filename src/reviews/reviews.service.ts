@@ -1,4 +1,9 @@
-import { Injectable, Logger, BadRequestException } from "@nestjs/common"
+import {
+  Injectable,
+  Logger,
+  BadRequestException,
+  NotFoundException,
+} from "@nestjs/common"
 import { CreateReviewDTO } from "./dto/create-review.dto"
 import { UpdateReviewDTO } from "./dto/update-review.dto"
 import { UserDTO } from "src/users/dtos/user.dto"
@@ -36,8 +41,8 @@ export class ReviewsService {
     }
   }
 
-  findOne(id: string) {
-    return this.prisma.review.findFirst({
+  async findOne(id: string) {
+    const review = await this.prisma.review.findFirst({
       where: { id },
       select: {
         id: true,
@@ -56,6 +61,10 @@ export class ReviewsService {
         },
       },
     })
+
+    if (!review) throw new NotFoundException()
+
+    return review
   }
 
   async update(id: string, updateReviewDTO: UpdateReviewDTO) {
