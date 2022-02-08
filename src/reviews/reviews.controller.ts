@@ -14,6 +14,7 @@ import { UpdateReviewDTO } from "./dto/update-review.dto"
 import { JwtAuthGuard } from "src/users/jwt/jwt.guard"
 import { CurrentUser } from "src/common/decorators/current-user.decorator"
 import { UserDTO } from "src/users/dtos/user.dto"
+import { AuthorGuard } from "./reviews.guard"
 
 @Controller("reviews")
 export class ReviewsController {
@@ -34,18 +35,19 @@ export class ReviewsController {
   }
 
   @Patch(":id")
+  @UseGuards(AuthorGuard)
   @UseGuards(JwtAuthGuard)
   async update(
     @Param("id") id: string,
     @Body() updateReviewDTO: UpdateReviewDTO,
-    @CurrentUser() userDTO: UserDTO,
   ) {
-    return this.reviewsService.update(id, updateReviewDTO, userDTO)
+    return this.reviewsService.update(id, updateReviewDTO)
   }
 
   @Delete(":id")
+  @UseGuards(AuthorGuard)
   @UseGuards(JwtAuthGuard)
-  async remove(@Param("id") id: string, @CurrentUser() userDTO: UserDTO) {
-    return this.reviewsService.remove(id, userDTO)
+  async remove(@Param("id") id: string) {
+    return this.reviewsService.remove(id)
   }
 }
