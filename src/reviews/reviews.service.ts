@@ -11,12 +11,8 @@ export class ReviewsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createReviewDTO: CreateReviewDTO, userDTO: UserDTO) {
-    const { email } = userDTO
+    const { id: authorId } = userDTO
     const { restaurantId } = createReviewDTO
-
-    const { id: authorId } = await this.prisma.user.findFirst({
-      where: { email },
-    })
 
     const reviews = await this.prisma.review.findMany({
       where: { authorId, restaurantId },
@@ -63,11 +59,7 @@ export class ReviewsService {
   }
 
   async update(id: string, updateReviewDTO: UpdateReviewDTO, userDTO: UserDTO) {
-    const { email } = userDTO
-
-    const { id: authorId } = await this.prisma.user.findFirst({
-      where: { email },
-    })
+    const { id: authorId } = userDTO
 
     const review = await this.prisma.review.findFirst({
       where: { id },
@@ -89,11 +81,7 @@ export class ReviewsService {
   }
 
   async remove(id: string, userDTO: UserDTO) {
-    const { email } = userDTO
-
-    const { id: authorId } = await this.prisma.user.findFirst({
-      where: { email },
-    })
+    const { id: authorId } = userDTO
 
     const review = await this.prisma.review.findFirst({
       where: { authorId, id },

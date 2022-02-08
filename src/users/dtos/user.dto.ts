@@ -2,6 +2,8 @@ import { User } from "@prisma/client"
 import { IsBoolean, IsEmail, IsNotEmpty, IsString } from "class-validator"
 
 export class UserDTO {
+  id: User["id"]
+
   @IsEmail({}, { message: "올바른 이메일을 작성해주세요." })
   @IsNotEmpty({ message: "이메일을 작성해주세요." })
   email: User["email"]
