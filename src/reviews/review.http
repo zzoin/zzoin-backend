@@ -1,0 +1,31 @@
+@url = http://localhost:5001
+
+@restaurantId = 65f9e0f0-d129-4760-b4c3-1f8af813068e
+@reviewId = 0e135798-98f0-42e8-b675-5bfb8d199269
+
+### 리뷰 생성
+POST {{url}}/reviews
+Content-Type: application/json
+
+{
+  "restaurantId": "{{restaurantId}}",
+  "content": "리뷰 내용",
+  "score": 5
+}
+
+### 리뷰 조회
+GET {{url}}/reviews/{{reviewId}}
+Content-Type: application/json
+
+### 리뷰 수정
+PATCH {{url}}/reviews/{{reviewId}}
+Content-Type: application/json
+
+{
+  "content": "수정된 리뷰 내용",
+  "score": 5
+}
+
+### 리뷰 제거
+DELETE {{url}}/reviews/{{reviewId}}
+Content-Type: application/json

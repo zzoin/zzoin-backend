@@ -1,4 +1,6 @@
-import { PartialType } from "@nestjs/swagger"
-import { CreateReviewDto } from "./create-review.dto"
+import { PickType, PartialType } from "@nestjs/swagger"
+import { CreateReviewDTO } from "./create-review.dto"
 
-export class UpdateReviewDto extends PartialType(CreateReviewDto) {}
+export class UpdateReviewDTO extends PartialType(
+  PickType(CreateReviewDTO, ["content", "score"] as const),
+) {}
