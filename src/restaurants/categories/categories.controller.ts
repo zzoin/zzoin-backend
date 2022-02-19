@@ -38,6 +38,8 @@ export class CategoriesController {
   }
 
   @Patch(":id")
+  @Role("admin")
+  @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   update(
     @Param("id") id: string,
