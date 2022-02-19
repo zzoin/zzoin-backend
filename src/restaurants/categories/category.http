@@ -1,0 +1,10 @@
+@url = http://localhost:5001
+
+### 카테고리 생성 (어드민)
+POST {{url}}/categories
+Content-Type: application/json
+
+{
+  "name": "카테고리 이름",
+  "iconImageUrl": "https://google.com"
+}

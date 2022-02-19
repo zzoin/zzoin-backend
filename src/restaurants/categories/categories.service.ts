@@ -1,11 +1,31 @@
-import { Injectable } from "@nestjs/common"
-import { CreateCategoryDto } from "./dto/create-category.dto"
-import { UpdateCategoryDto } from "./dto/update-category.dto"
+import { BadRequestException, Injectable } from "@nestjs/common"
+import { PrismaService } from "src/prisma.service"
+
+import { CreateCategoryDTO } from "./dto/create-category.dto"
+import { UpdateCategoryDTO } from "./dto/update-category.dto"
 
 @Injectable()
 export class CategoriesService {
-  create(createCategoryDto: CreateCategoryDto) {
-    return "This action adds a new category"
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createCategoryDto: CreateCategoryDTO) {
+    const { name } = createCategoryDto
+
+    const category = await this.prisma.category.findFirst({
+      where: { name },
+    })
+
+    if (category) {
+      throw new BadRequestException("같은 이름의 카테고리가 이미 존재합니다.")
+    }
+
+    try {
+      await this.prisma.category.create({
+        data: createCategoryDto,
+      })
+    } catch (error) {
+      throw new BadRequestException(error.message)
+    }
   }
 
   findAll() {
@@ -16,7 +36,7 @@ export class CategoriesService {
     return `This action returns a #${id} category`
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
+  update(id: number, updateCategoryDto: UpdateCategoryDTO) {
     return `This action updates a #${id} category`
   }
 
