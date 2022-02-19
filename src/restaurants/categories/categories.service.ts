@@ -36,8 +36,21 @@ export class CategoriesService {
     return `This action returns a #${id} category`
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDTO) {
-    return `This action updates a #${id} category`
+  async update(id: string, updateCategoryDTO: UpdateCategoryDTO) {
+    const category = await this.prisma.category.findFirst({
+      where: { id },
+    })
+
+    if (!category) throw new BadRequestException("리뷰가 존재하지 않습니다.")
+
+    try {
+      await this.prisma.category.update({
+        where: { id },
+        data: updateCategoryDTO,
+      })
+    } catch (error) {
+      throw new BadRequestException(error.message)
+    }
   }
 
   remove(id: number) {

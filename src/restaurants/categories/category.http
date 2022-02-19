@@ -8,3 +8,12 @@ Content-Type: application/json
   "name": "카테고리 이름",
   "iconImageUrl": "https://google.com"
 }
+
+### 카테고리 수정 (어드민)
+PATCH {{url}}/categories/2f36a059-b2f8-44b9-8be7-7e7d4ae374a0
+Content-Type: application/json
+
+{
+  "name": "수정뿅",
+  "iconImageUrl": "https://google.kr"
+}

@@ -43,7 +43,7 @@ export class CategoriesController {
     @Param("id") id: string,
     @Body() updateCategoryDto: UpdateCategoryDTO,
   ) {
-    return this.categoriesService.update(+id, updateCategoryDto)
+    return this.categoriesService.update(id, updateCategoryDto)
   }
 
   @Delete(":id")
