@@ -29,11 +29,25 @@ export class CategoriesService {
   }
 
   findAll() {
-    return `This action returns all categories`
+    return this.prisma.category.findMany({
+      select: {
+        id: true,
+        name: true,
+        iconImageUrl: true,
+      },
+    })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`
+  findOne(id: string) {
+    return this.prisma.category.findFirst({
+      where: {
+        id,
+      },
+      select: {
+        name: true,
+        iconImageUrl: true,
+      },
+    })
   }
 
   async update(id: string, updateCategoryDTO: UpdateCategoryDTO) {

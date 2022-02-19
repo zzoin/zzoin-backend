@@ -1,5 +1,7 @@
 @url = http://localhost:5001
 
+@category_id = 2f36a059-b2f8-44b9-8be7-7e7d4ae374a0
+
 ### 카테고리 생성 (어드민)
 POST {{url}}/categories
 Content-Type: application/json
@@ -9,8 +11,14 @@ Content-Type: application/json
   "iconImageUrl": "https://google.com"
 }
 
+### 모든 카테고리 조회
+GET {{url}}/categories
+
+### 특정 카테고리 조회
+GET {{url}}/categories/{{category_id}}
+
 ### 카테고리 수정 (어드민)
-PATCH {{url}}/categories/2f36a059-b2f8-44b9-8be7-7e7d4ae374a0
+PATCH {{url}}/categories/{{category_id}}
 Content-Type: application/json
 
 {
