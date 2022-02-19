@@ -49,8 +49,10 @@ export class CategoriesController {
   }
 
   @Delete(":id")
+  @Role("admin")
+  @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   remove(@Param("id") id: string) {
-    return this.categoriesService.remove(+id)
+    return this.categoriesService.remove(id)
   }
 }

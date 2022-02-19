@@ -25,3 +25,6 @@ Content-Type: application/json
   "name": "수정뿅",
   "iconImageUrl": "https://google.kr"
 }
+
+### 카테고리 삭제 (어드민)
+DELETE {{url}}/categories/{{category_id}}

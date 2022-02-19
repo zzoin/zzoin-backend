@@ -55,7 +55,8 @@ export class CategoriesService {
       where: { id },
     })
 
-    if (!category) throw new BadRequestException("리뷰가 존재하지 않습니다.")
+    if (!category)
+      throw new BadRequestException("카테고리가 존재하지 않습니다.")
 
     try {
       await this.prisma.category.update({
@@ -67,7 +68,19 @@ export class CategoriesService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`
+  async remove(id: string) {
+    const review = await this.prisma.category.findFirst({
+      where: { id },
+    })
+
+    if (!review) throw new BadRequestException("카테고리가 존재하지 않습니다.")
+
+    try {
+      await this.prisma.category.delete({
+        where: { id },
+      })
+    } catch (error) {
+      throw new BadRequestException(error.message)
+    }
   }
 }
