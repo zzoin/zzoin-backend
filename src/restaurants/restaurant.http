@@ -1,0 +1,32 @@
+@url = http://localhost:5001
+
+@restaurant_id = 768be709-de7a-49b2-be33-613ba8623434
+@menu_id = 27b93089-c6b6-4cf6-aa45-acfd68e618a0
+
+### 식당에 메뉴 생성 (어드민)
+POST {{url}}/restaurants/{{restaurant_id}}/menus
+Content-Type: application/json
+
+{
+  "name": "새로운 메뉴",
+  "description": "새로운 메뉴입니다.",
+  "price": 50000,
+  "imageUrl": "https://picsum.photos/300/300"
+}
+
+### 식당의 모든 메뉴 조회
+GET {{url}}/restaurants/{{restaurant_id}}/menus
+
+### 식당의 메뉴 수정 (어드민)
+PATCH {{url}}/restaurants/{{restaurant_id}}/menus/{{menu_id}}
+Content-Type: application/json
+
+{
+  "name": "수정된 메뉴",
+  "description": "새로운 메뉴입니다.",
+  "price": 50000,
+  "imageUrl": "https://picsum.photos/300/300"
+}
+
+### 식당의 메뉴 삭제 (어드민)
+DELETE {{url}}/restaurants/{{restaurant_id}}/menus/{{menu_id}}
