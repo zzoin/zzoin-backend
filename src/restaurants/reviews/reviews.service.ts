@@ -77,7 +77,7 @@ export class ReviewsService {
       where: { restaurantId, id },
     })
 
-    if (!review) throw new BadRequestException("리뷰가 존재하지 않습니다.")
+    if (!review) throw new NotFoundException("리뷰가 존재하지 않습니다.")
 
     try {
       await this.prisma.review.update({
@@ -94,7 +94,7 @@ export class ReviewsService {
       where: { restaurantId, id },
     })
 
-    if (!review) throw new BadRequestException("리뷰가 존재하지 않습니다.")
+    if (!review) throw new NotFoundException("리뷰가 존재하지 않습니다.")
 
     try {
       await this.prisma.review.delete({
