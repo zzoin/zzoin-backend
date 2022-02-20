@@ -1,1 +1,1 @@
-export class CreateRestaurantDto {}
+export class CreateRestaurantDTO {}

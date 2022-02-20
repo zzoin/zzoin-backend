@@ -1,7 +1,31 @@
 @url = http://localhost:5001
 
 @restaurant_id = 768be709-de7a-49b2-be33-613ba8623434
+@review_id = 9b6ea31f-921c-42d9-b709-8710ff1286ff
 @menu_id = 27b93089-c6b6-4cf6-aa45-acfd68e618a0
+
+### 식당에 리뷰 생성
+POST {{url}}/restaurants/{{restaurant_id}}/reviews
+Content-Type: application/json
+
+{
+  "content": "리뷰 내용",
+  "score": 5
+}
+
+### 식당의 리뷰 수정
+PATCH {{url}}/restaurants/{{restaurant_id}}/reviews/{{review_id}}
+Content-Type: application/json
+
+{
+  "content": "수정된 리뷰 내용",
+  "score": 5
+}
+
+### 식당의 리뷰 제거
+DELETE {{url}}/restaurants/{{restaurant_id}}/reviews/{{review_id}}
+Content-Type: application/json
+
 
 ### 식당에 메뉴 생성 (어드민)
 POST {{url}}/restaurants/{{restaurant_id}}/menus
