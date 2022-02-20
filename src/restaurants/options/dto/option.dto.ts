@@ -6,7 +6,7 @@ export class OptionDTO {
 
   @IsString({ message: "올바른 카테고리 이름을 입력해주세요." })
   @IsNotEmpty({ message: "카테고리 이름을 입력해주세요." })
-  name: Category["name"]
+  name: Option["name"]
 
   @IsString({ message: "올바른 카테고리 이미지 아이콘 URL을 입력해주세요." })
   @IsNotEmpty({ message: "카테고리 이미지 아이콘 URL을 입력해주세요." })
@@ -15,5 +15,5 @@ export class OptionDTO {
     require_valid_protocol: true,
     message: "올바르지 않은 URL 형태입니다.",
   })
-  iconImageUrl: Category["iconImageUrl"]
+  iconImageUrl: Option["iconImageUrl"]
 }

@@ -1,0 +1,30 @@
+@url = http://localhost:5001
+
+@option_id = 2f36a059-b2f8-44b9-8be7-7e7d4ae374a0
+
+### 옵션 생성 (어드민)
+POST {{url}}/options
+Content-Type: application/json
+
+{
+  "name": "옵션 이름",
+  "iconImageUrl": "https://google.com"
+}
+
+### 모든 옵션 조회
+GET {{url}}/options
+
+### 특정 옵션 조회
+GET {{url}}/options/{{option_id}}
+
+### 옵션 수정 (어드민)
+PATCH {{url}}/options/{{option_id}}
+Content-Type: application/json
+
+{
+  "name": "수정뿅",
+  "iconImageUrl": "https://google.kr"
+}
+
+### 옵션 삭제 (어드민)
+DELETE {{url}}/options/{{option_id}}
