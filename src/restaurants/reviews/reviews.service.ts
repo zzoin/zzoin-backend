@@ -68,6 +68,30 @@ export class ReviewsService {
     return review
   }
 
+  findAllByRestaurantId(restaurantId: string) {
+    return this.prisma.review.findMany({
+      where: {
+        restaurantId,
+      },
+      select: {
+        id: true,
+        content: true,
+        score: true,
+        createdAt: true,
+        updatedAt: true,
+        deleted: true,
+        author: {
+          select: {
+            id: true,
+            email: true,
+            username: true,
+            profileImageUrl: true,
+          },
+        },
+      },
+    })
+  }
+
   async update(
     restaurantId: string,
     id: string,

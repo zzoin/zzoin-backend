@@ -74,6 +74,11 @@ export class RestaurantsController {
     return this.reviewsService.create(id, createReviewDTO, userDTO)
   }
 
+  @Get(":id/reviews")
+  findAllReviewByRestaurantId(@Param("id") id: string) {
+    return this.reviewsService.findAllByRestaurantId(id)
+  }
+
   @Patch(":id/reviews/:reviewId")
   @UseGuards(AuthorGuard)
   @UseGuards(JwtAuthGuard)
