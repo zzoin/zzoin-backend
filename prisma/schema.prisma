@@ -93,9 +93,9 @@ model Menu {
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   restaurantId String
   name         String
-  description  String
-  price        Int        @db.Integer()
-  imageUrl     String
+  description  String?
+  price        Int?       @db.Integer()
+  imageUrl     String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
