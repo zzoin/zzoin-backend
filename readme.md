@@ -64,3 +64,11 @@ npx prisma migrate dev
 ```
 
 새롭게 DB 마이그레이션을 생성합니다.
+
+### Prisma 클라이언트 생성하기
+
+```bash
+npx prisma generate
+```
+
+Prisma 스키마의 변경사항이 생겼다면, 위 명령어로 Prisma 클라이언트를 다시 생성해야합니다.

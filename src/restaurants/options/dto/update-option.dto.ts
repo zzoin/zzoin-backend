@@ -1,4 +1,6 @@
-import { PartialType } from "@nestjs/swagger"
-import { CreateOptionDto } from "./create-option.dto"
+import { PickType, PartialType } from "@nestjs/swagger"
+import { CreateOptionDTO } from "./create-option.dto"
 
-export class UpdateOptionDto extends PartialType(CreateOptionDto) {}
+export class UpdateOptionDTO extends PartialType(
+  PickType(CreateOptionDTO, ["name", "iconImageUrl"] as const),
+) {}

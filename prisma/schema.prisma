@@ -73,3 +73,16 @@ model Category {
 
   @@map("CATEGORY")
 }
+
+model Option {
+  id           String @id @default(uuid())
+  name         String
+  iconImageUrl String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deleted   Boolean  @default(false)
+
+
+  @@map("OPTION")
+}
