@@ -46,15 +46,21 @@ PostgresQL 컨테이너를 띄웁니다.
 ### 3. DB Migration
 
 ```bash
-npx prisma migrate dev
+npm run db:migrate
 ```
-
-DB 마이그레이션을 합니다.
 
 ## Commands
 
 ### Prisma Studio
 
 ```bash
-npx prisma studio
+npm run db:studio
 ```
+
+### Prisma DB 마이그레이션 생성
+
+```bash
+npx prisma migrate dev
+```
+
+새롭게 DB 마이그레이션을 생성합니다.
