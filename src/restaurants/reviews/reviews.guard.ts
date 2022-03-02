@@ -8,12 +8,12 @@ export class AuthorGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const { user, params } = context.switchToHttp().getRequest()
     const { id: userId } = user
-    const { id: reviewId } = params
+    const { reviewId } = params
 
-    const { authorId } = await this.prisma.review.findFirst({
+    const review = await this.prisma.review.findFirst({
       where: { id: reviewId },
     })
 
-    return userId === authorId
+    return userId === review?.authorId
   }
 }

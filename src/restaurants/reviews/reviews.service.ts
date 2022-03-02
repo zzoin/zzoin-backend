@@ -1,6 +1,5 @@
 import {
   Injectable,
-  Logger,
   BadRequestException,
   NotFoundException,
 } from "@nestjs/common"
@@ -11,13 +10,14 @@ import { PrismaService } from "src/prisma.service"
 
 @Injectable()
 export class ReviewsService {
-  private readonly logger = new Logger(ReviewsService.name)
-
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createReviewDTO: CreateReviewDTO, userDTO: UserDTO) {
+  async create(
+    restaurantId: string,
+    createReviewDTO: CreateReviewDTO,
+    userDTO: UserDTO,
+  ) {
     const { id: authorId } = userDTO
-    const { restaurantId } = createReviewDTO
 
     const reviews = await this.prisma.review.findMany({
       where: { authorId, restaurantId },
@@ -34,6 +34,7 @@ export class ReviewsService {
         data: {
           ...createReviewDTO,
           authorId,
+          restaurantId,
         },
       })
     } catch (error) {
@@ -67,29 +68,57 @@ export class ReviewsService {
     return review
   }
 
-  async update(id: string, updateReviewDTO: UpdateReviewDTO) {
+  findAllByRestaurantId(restaurantId: string) {
+    return this.prisma.review.findMany({
+      where: {
+        restaurantId,
+      },
+      select: {
+        id: true,
+        content: true,
+        score: true,
+        createdAt: true,
+        updatedAt: true,
+        deleted: true,
+        author: {
+          select: {
+            id: true,
+            email: true,
+            username: true,
+            profileImageUrl: true,
+          },
+        },
+      },
+    })
+  }
+
+  async update(
+    restaurantId: string,
+    id: string,
+    updateReviewDTO: UpdateReviewDTO,
+  ) {
     const review = await this.prisma.review.findFirst({
-      where: { id },
+      where: { restaurantId, id },
     })
 
-    if (!review) throw new BadRequestException("리뷰가 존재하지 않습니다.")
+    if (!review) throw new NotFoundException("리뷰가 존재하지 않습니다.")
 
     try {
       await this.prisma.review.update({
         where: { id },
-        data: updateReviewDTO,
+        data: { restaurantId, ...updateReviewDTO },
       })
     } catch (error) {
       throw new BadRequestException(error.message)
     }
   }
 
-  async remove(id: string) {
+  async remove(restaurantId: string, id: string) {
     const review = await this.prisma.review.findFirst({
-      where: { id },
+      where: { restaurantId, id },
     })
 
-    if (!review) throw new BadRequestException("리뷰가 존재하지 않습니다.")
+    if (!review) throw new NotFoundException("리뷰가 존재하지 않습니다.")
 
     try {
       await this.prisma.review.delete({

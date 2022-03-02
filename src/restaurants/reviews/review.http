@@ -1,0 +1,6 @@
+@url = http://localhost:5001
+
+@review_id = e663ad33-f501-4e36-baaf-86c82b92a85e
+
+### 리뷰 조회
+GET {{url}}/reviews/{{review_id}}
