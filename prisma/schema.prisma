@@ -58,6 +58,7 @@ model Restaurant {
   deleted   Boolean  @default(false)
 
 
+  Menu Menu[]
   @@map("RESTAURANT")
 }
 
@@ -85,4 +86,21 @@ model Option {
 
 
   @@map("OPTION")
+}
+
+model Menu {
+  id           String     @id @default(cuid())
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  name         String
+  description  String?
+  price        Int?       @db.Integer()
+  imageUrl     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deleted   Boolean  @default(false)
+
+
+  @@map("MENU")
 }
