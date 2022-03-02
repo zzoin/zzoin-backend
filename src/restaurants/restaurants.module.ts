@@ -8,6 +8,7 @@ import { OptionsModule } from "./options/options.module"
 import { CategoriesModule } from "./categories/categories.module"
 import { ReviewsService } from "./reviews/reviews.service"
 import { MenusService } from "./menus/menus.service"
+import { ImagesService } from "./images/images.service"
 import { PrismaService } from "src/prisma.service"
 
 @Module({
@@ -19,6 +20,12 @@ import { PrismaService } from "src/prisma.service"
     CategoriesModule,
   ],
   controllers: [RestaurantsController],
-  providers: [RestaurantsService, ReviewsService, MenusService, PrismaService],
+  providers: [
+    RestaurantsService,
+    ReviewsService,
+    MenusService,
+    ImagesService,
+    PrismaService,
+  ],
 })
 export class RestaurantsModule {}

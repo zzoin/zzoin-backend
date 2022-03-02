@@ -3,6 +3,7 @@
 @restaurant_id = 768be709-de7a-49b2-be33-613ba8623434
 @review_id = 9b6ea31f-921c-42d9-b709-8710ff1286ff
 @menu_id = 27b93089-c6b6-4cf6-aa45-acfd68e618a0
+@image_id = e734b590-dbf6-4f18-8fda-75345c661121
 
 ### 식당에 리뷰 생성
 POST {{url}}/restaurants/{{restaurant_id}}/reviews
@@ -57,3 +58,29 @@ Content-Type: application/json
 
 ### 식당의 메뉴 삭제 (어드민)
 DELETE {{url}}/restaurants/{{restaurant_id}}/menus/{{menu_id}}
+
+
+### 식당 이미지 생성 (어드민)
+POST {{url}}/restaurants/{{restaurant_id}}/images
+Content-Type: application/json
+
+{
+  "imageUrl": "https://picsum.photos/300/300",
+  "caption": "이미지 캡션"
+}
+
+### 식당의 모든 이미지 조회
+GET {{url}}/restaurants/{{restaurant_id}}/images
+
+### 식당의 이미지 수정 (어드민)
+PATCH {{url}}/restaurants/{{restaurant_id}}/images/{{image_id}}
+Content-Type: application/json
+
+{
+  "imageUrl": "https://picsum.photos/300/300",
+  "caption": "수정된 이미지 캡션"
+}
+
+### 식당의 이미지 삭제 (어드민)
+DELETE {{url}}/restaurants/{{restaurant_id}}/images/{{image_id}}
+
