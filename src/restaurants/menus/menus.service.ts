@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common"
 import { PrismaService } from "src/prisma.service"
 
 import { CreateMenuDTO } from "./dto/create-menu.dto"
@@ -61,7 +65,7 @@ export class MenusService {
       },
     })
 
-    if (!menu) throw new BadRequestException("메뉴가 존재하지 않습니다.")
+    if (!menu) throw new NotFoundException("메뉴가 존재하지 않습니다.")
 
     return menu
   }
@@ -71,7 +75,7 @@ export class MenusService {
       where: { restaurantId, id },
     })
 
-    if (!menu) throw new BadRequestException("메뉴가 존재하지 않습니다.")
+    if (!menu) throw new NotFoundException("메뉴가 존재하지 않습니다.")
 
     try {
       await this.prisma.menu.update({
@@ -88,7 +92,7 @@ export class MenusService {
       where: { restaurantId, id },
     })
 
-    if (!menu) throw new BadRequestException("메뉴가 존재하지 않습니다.")
+    if (!menu) throw new NotFoundException("메뉴가 존재하지 않습니다.")
 
     try {
       await this.prisma.menu.delete({

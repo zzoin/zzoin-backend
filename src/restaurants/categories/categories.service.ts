@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common"
 import { PrismaService } from "src/prisma.service"
 
 import { CreateCategoryDTO } from "./dto/create-category.dto"
@@ -55,8 +59,7 @@ export class CategoriesService {
       where: { id },
     })
 
-    if (!category)
-      throw new BadRequestException("카테고리가 존재하지 않습니다.")
+    if (!category) throw new NotFoundException("카테고리가 존재하지 않습니다.")
 
     try {
       await this.prisma.category.update({
@@ -64,7 +67,7 @@ export class CategoriesService {
         data: updateCategoryDTO,
       })
     } catch (error) {
-      throw new BadRequestException(error.message)
+      throw new NotFoundException(error.message)
     }
   }
 
@@ -73,8 +76,7 @@ export class CategoriesService {
       where: { id },
     })
 
-    if (!category)
-      throw new BadRequestException("카테고리가 존재하지 않습니다.")
+    if (!category) throw new NotFoundException("카테고리가 존재하지 않습니다.")
 
     try {
       await this.prisma.category.delete({

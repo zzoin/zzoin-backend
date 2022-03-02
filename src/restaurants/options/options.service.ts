@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common"
 import { PrismaService } from "src/prisma.service"
 
 import { CreateOptionDTO } from "./dto/create-option.dto"
@@ -55,7 +59,7 @@ export class OptionsService {
       where: { id },
     })
 
-    if (!option) throw new BadRequestException("옵션이 존재하지 않습니다.")
+    if (!option) throw new NotFoundException("옵션이 존재하지 않습니다.")
 
     try {
       await this.prisma.option.update({
@@ -72,7 +76,7 @@ export class OptionsService {
       where: { id },
     })
 
-    if (!review) throw new BadRequestException("옵션이 존재하지 않습니다.")
+    if (!review) throw new NotFoundException("옵션이 존재하지 않습니다.")
 
     try {
       await this.prisma.option.delete({

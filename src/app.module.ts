@@ -4,7 +4,6 @@ import * as Joi from "joi"
 import { AppController } from "./app.controller"
 import { PrismaService } from "./prisma.service"
 import { UsersModule } from "./users/users.module"
-import { ReviewsModule } from "./reviews/reviews.module"
 import { RestaurantsModule } from "./restaurants/restaurants.module"
 
 @Module({
@@ -22,7 +21,6 @@ import { RestaurantsModule } from "./restaurants/restaurants.module"
       }),
     }),
     UsersModule,
-    ReviewsModule,
     RestaurantsModule,
   ],
   controllers: [AppController],
