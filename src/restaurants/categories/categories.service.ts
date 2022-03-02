@@ -69,11 +69,12 @@ export class CategoriesService {
   }
 
   async remove(id: string) {
-    const review = await this.prisma.category.findFirst({
+    const category = await this.prisma.category.findFirst({
       where: { id },
     })
 
-    if (!review) throw new BadRequestException("카테고리가 존재하지 않습니다.")
+    if (!category)
+      throw new BadRequestException("카테고리가 존재하지 않습니다.")
 
     try {
       await this.prisma.category.delete({
