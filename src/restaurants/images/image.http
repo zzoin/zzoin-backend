@@ -1,0 +1,9 @@
+@url = http://localhost:5001
+
+@restaurant_image_id = 39c2dd09-cf7d-4b7f-9e9f-c140109212d9
+
+### 모든 식당 이미지 조회 (어드민)
+GET {{url}}/restaurant-images
+
+### 특정 식당 이미지 조회
+GET {{url}}/restaurant-images/{{restaurant_image_id}}

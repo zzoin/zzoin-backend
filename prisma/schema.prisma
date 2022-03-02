@@ -58,7 +58,8 @@ model Restaurant {
   deleted   Boolean  @default(false)
 
 
-  Menu Menu[]
+  Menu            Menu[]
+  RestaurantImage RestaurantImage[]
   @@map("RESTAURANT")
 }
 
@@ -103,4 +104,12 @@ model Menu {
 
 
   @@map("MENU")
+}
+
+model RestaurantImage {
+  id           String     @id @default(uuid())
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  imageUrl     String
+  caption      String
 }
