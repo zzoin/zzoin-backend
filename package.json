@@ -16,6 +16,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prettier": "npx prettier -w .",
     "prettier:fix": "npx prettier -c .",
+    "prisma": "npx prisma",
     "db:migrate": "npx prisma migrate",
     "db:studio": "npx prisma studio"
   },
