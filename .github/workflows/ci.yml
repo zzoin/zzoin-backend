@@ -20,7 +20,7 @@ jobs:
       - name: USE NODE 14.17
         uses: actions/setup-node@v1
         with:
-          node-version: '14.17'
+          node-version: "14.17"
       - name: NODE VERSION CHECK
         run: node --version
       - name: NPM VERSION UPGRADE
@@ -43,7 +43,7 @@ jobs:
       - name: USE NODE 14.17
         uses: actions/setup-node@v1
         with:
-          node-version: '14.17'
+          node-version: "14.17"
       - name: NODE VERSION CHECK
         run: node --version
       - name: NPM VERSION UPGRADE
@@ -66,7 +66,7 @@ jobs:
       - name: USE NODE 14.17
         uses: actions/setup-node@v1
         with:
-          node-version: '14.17'
+          node-version: "14.17"
       - name: NODE VERSION CHECK
         run: node --version
       - name: NPM VERSION UPGRADE
@@ -75,6 +75,8 @@ jobs:
         run: npm --version
       - name: INSTALL NODE PACKAGE
         run: npm i
+      - name: PRISMA SETTING
+        run: npm run prisma generate
       # code process
       - name: CHECK PROJECT BUILD
         run: npm run build
