@@ -48,18 +48,21 @@ model Review {
 }
 
 model Restaurant {
-  id      String   @id @default(uuid())
-  reviews Review[]
+  id           String   @id @default(uuid())
+  reviews      Review[]
+  address      String
+  mapUrl       String   @db.Text()
+  phoneNumber  String
+  openingHours String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deleted      Boolean  @default(false)
 
-  // TODO
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  deleted   Boolean  @default(false)
-
-
+  categories      Category[]        @relation("_category_on_restaurant")
+  options         Option[]          @relation("_option_on_restaurant")
   Menu            Menu[]
   RestaurantImage RestaurantImage[]
+
   @@map("RESTAURANT")
 }
 
@@ -72,19 +75,20 @@ model Category {
   updatedAt DateTime @updatedAt
   deleted   Boolean  @default(false)
 
+  restaurants Restaurant[] @relation("_category_on_restaurant")
 
   @@map("CATEGORY")
 }
 
 model Option {
-  id           String @id @default(uuid())
+  id           String   @id @default(uuid())
   name         String
   iconImageUrl String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deleted      Boolean  @default(false)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  deleted   Boolean  @default(false)
-
+  restaurants Restaurant[] @relation("_option_on_restaurant")
 
   @@map("OPTION")
 }
