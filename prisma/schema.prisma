@@ -27,7 +27,6 @@ model User {
 
   password String?
 
-
   @@map("USER")
 }
 
@@ -49,15 +48,17 @@ model Review {
 
 model Restaurant {
   id           String   @id @default(uuid())
-  reviews      Review[]
-  address      String
-  mapUrl       String   @db.Text()
-  phoneNumber  String
-  openingHours String
+  name         String
+  description  String?
+  address      String?
+  mapUrl       String?  @db.Text()
+  phoneNumber  String?
+  openingHours String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   deleted      Boolean  @default(false)
 
+  reviews         Review[]
   categories      Category[]        @relation("_category_on_restaurant")
   options         Option[]          @relation("_option_on_restaurant")
   Menu            Menu[]

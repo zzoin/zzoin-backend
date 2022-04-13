@@ -21,10 +21,12 @@ export class MenuDTO {
   price: Menu["price"]
 
   @IsString({ message: "올바른 메뉴 이미지 URL을 입력해주세요." })
-  @IsUrl({
-    require_protocol: true,
-    require_valid_protocol: true,
-    message: "올바르지 않은 URL 형태입니다.",
-  })
+  @IsUrl(
+    {
+      require_protocol: true,
+      require_valid_protocol: true,
+    },
+    { message: "올바르지 않은 URL 형태입니다." },
+  )
   imageUrl: Menu["imageUrl"]
 }
