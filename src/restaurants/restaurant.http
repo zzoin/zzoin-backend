@@ -1,9 +1,46 @@
 @url = http://localhost:5001
 
-@restaurant_id = 768be709-de7a-49b2-be33-613ba8623434
+@restaurant_id = 12ba8ddd-a4f0-47fa-90b5-152eba04c244
 @review_id = 9b6ea31f-921c-42d9-b709-8710ff1286ff
 @menu_id = 27b93089-c6b6-4cf6-aa45-acfd68e618a0
 @image_id = e734b590-dbf6-4f18-8fda-75345c661121
+
+### 식당 생성 (어드민)
+POST {{url}}/restaurants
+Content-Type: application/json
+
+{
+  "name": "테스트 식당",
+  "description": "식당 소개",
+  "mapUrl": "http://naver.com",
+  "address": "서울특별시 중구 ...",
+  "phoneNumber": "050-9999-9999",
+  "openingHours": "24시간 연중무휴"
+}
+
+### 전체 식당 조회
+GET {{url}}/restaurants
+Content-Type: application/json
+
+### ID를 통해 식당 단건 조회
+GET {{url}}/restaurants/{{restaurant_id}}
+Content-Type: application/json
+
+### 식당 수정 (어드민)
+PATCH {{url}}/restaurants/{{restaurant_id}}
+Content-Type: application/json
+
+{
+  "name": "하하식당",
+  "description": "식당소개",
+  "mapUrl": "http://naver.com",
+  "address": "서울특별시 중구 ...",
+  "phoneNumber": "050-9999-9999",
+  "openingHours": "24시간 연중무휴"
+}
+
+### 식당 제거 (어드민)
+DELETE {{url}}/restaurants/{{restaurant_id}}
 
 ### 식당에 리뷰 생성
 POST {{url}}/restaurants/{{restaurant_id}}/reviews

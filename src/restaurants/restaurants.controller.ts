@@ -40,6 +40,8 @@ export class RestaurantsController {
   ) {}
 
   @Post()
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   create(@Body() createRestaurantDTO: CreateRestaurantDTO) {
     return this.restaurantsService.create(createRestaurantDTO)
   }
@@ -51,20 +53,24 @@ export class RestaurantsController {
 
   @Get(":id")
   findOne(@Param("id") id: string) {
-    return this.restaurantsService.findOne(+id)
+    return this.restaurantsService.findOne(id)
   }
 
   @Patch(":id")
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   update(
     @Param("id") id: string,
     @Body() updateRestaurantDTO: UpdateRestaurantDTO,
   ) {
-    return this.restaurantsService.update(+id, updateRestaurantDTO)
+    return this.restaurantsService.update(id, updateRestaurantDTO)
   }
 
   @Delete(":id")
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
   remove(@Param("id") id: string) {
-    return this.restaurantsService.remove(+id)
+    return this.restaurantsService.remove(id)
   }
 
   /* 리뷰 */
