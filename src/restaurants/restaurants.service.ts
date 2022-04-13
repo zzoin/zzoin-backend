@@ -1,3 +1,4 @@
+import { S3Outposts } from "aws-sdk"
 import {
   Injectable,
   BadRequestException,
@@ -8,6 +9,7 @@ import { PrismaService } from "src/prisma.service"
 import { CreateRestaurantDTO } from "./dto/create-restaurant.dto"
 import { UpdateRestaurantDTO } from "./dto/update-restaurant.dto"
 
+const DEFAULT_RESTAURANTS_LIMIT = 10
 @Injectable()
 export class RestaurantsService {
   constructor(private readonly prisma: PrismaService) {}
@@ -22,8 +24,20 @@ export class RestaurantsService {
     }
   }
 
-  async findAll() {
-    return this.prisma.restaurant.findMany({
+  async findAll(query) {
+    const { search, start, limit, excludes } = query
+
+    let excludedCategories: string[] = []
+    if (excludes) excludedCategories = JSON.parse(excludes)
+
+    const restaruants = await this.prisma.restaurant.findMany({
+      where: {
+        name: {
+          contains: search,
+        },
+      },
+      skip: Number(start) || 0,
+      take: Number(limit) || DEFAULT_RESTAURANTS_LIMIT,
       select: {
         id: true,
         name: true,
@@ -32,8 +46,26 @@ export class RestaurantsService {
         mapUrl: true,
         phoneNumber: true,
         openingHours: true,
+        categories: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
       },
     })
+
+    if (excludedCategories.length === 0) return restaruants
+
+    // TODO: 프리즈마 쿼리로 해결해야함
+    const notExcludedRestaurants = (await restaruants).filter((restaurant) => {
+      const ids = restaurant.categories.map((category) => category.id)
+      const isExcluded =
+        ids.filter((id) => excludedCategories.includes(id)).length > 0
+      return !isExcluded
+    })
+
+    return notExcludedRestaurants
   }
 
   async findOne(id: string) {
