@@ -10,6 +10,8 @@ import { PrismaService } from "src/prisma.service"
 
 @Injectable()
 export class ReviewsService {
+  DEFAULT_REVIEWS_LIMIT = 10
+
   constructor(private readonly prisma: PrismaService) {}
 
   async create(
@@ -68,11 +70,15 @@ export class ReviewsService {
     return review
   }
 
-  findAllByRestaurantId(restaurantId: string) {
+  findAllByRestaurantId(restaurantId: string, query) {
+    const { start, limit } = query
+
     return this.prisma.review.findMany({
       where: {
         restaurantId,
       },
+      skip: Number(start) || 0,
+      take: Number(limit) || this.DEFAULT_REVIEWS_LIMIT,
       select: {
         id: true,
         content: true,

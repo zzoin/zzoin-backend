@@ -87,8 +87,8 @@ export class RestaurantsController {
   }
 
   @Get(":id/reviews")
-  findAllReviewByRestaurantId(@Param("id") id: string) {
-    return this.reviewsService.findAllByRestaurantId(id)
+  findAllReviewByRestaurantId(@Param("id") id: string, @Query() query) {
+    return this.reviewsService.findAllByRestaurantId(id, query)
   }
 
   @Patch(":id/reviews/:reviewId")
