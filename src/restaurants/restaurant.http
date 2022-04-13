@@ -22,16 +22,20 @@ Content-Type: application/json
 GET {{url}}/restaurants
 Content-Type: application/json
 
+### ID를 통해 식당 단건 조회
+GET {{url}}/restaurants/{{restaurant_id}}
+Content-Type: application/json
+
 ### 이름 검색으로 식당 필터링
 GET {{url}}/restaurants?search=식당
 Content-Type: application/json
 
 ### 페이지네이션
-GET {{url}}/restaurants?start=0&limit=1
+GET {{url}}/restaurants?start=0&limit=2
 Content-Type: application/json
 
-### ID를 통해 식당 단건 조회
-GET {{url}}/restaurants/{{restaurant_id}}
+### 제외 카테고리 설정 (Array를 JSON.stringify 사용해서 쿼리 넣어주세요)
+GET {{url}}/restaurants?excludes=["0c77ae98-269f-46d4-ade6-d3a34c5f623e"]
 Content-Type: application/json
 
 ### 식당 수정 (어드민)
