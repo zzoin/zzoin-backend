@@ -1,4 +1,3 @@
-import { S3Outposts } from "aws-sdk"
 import {
   Injectable,
   BadRequestException,
@@ -9,9 +8,10 @@ import { PrismaService } from "src/prisma.service"
 import { CreateRestaurantDTO } from "./dto/create-restaurant.dto"
 import { UpdateRestaurantDTO } from "./dto/update-restaurant.dto"
 
-const DEFAULT_RESTAURANTS_LIMIT = 10
 @Injectable()
 export class RestaurantsService {
+  DEFAULT_RESTAURANTS_LIMIT = 10
+
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createRestaurantDto: CreateRestaurantDTO) {
@@ -37,7 +37,7 @@ export class RestaurantsService {
         },
       },
       skip: Number(start) || 0,
-      take: Number(limit) || DEFAULT_RESTAURANTS_LIMIT,
+      take: Number(limit) || this.DEFAULT_RESTAURANTS_LIMIT,
       select: {
         id: true,
         name: true,
