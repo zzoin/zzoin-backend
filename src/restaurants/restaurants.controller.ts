@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from "@nestjs/common"
 import { CurrentUser } from "src/common/decorators/current-user.decorator"
 import { Role } from "src/users/roles/roles.decorator"
@@ -39,6 +40,7 @@ export class RestaurantsController {
     private readonly imagesService: ImagesService,
   ) {}
 
+  /* 식당 */
   @Post()
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
@@ -47,8 +49,8 @@ export class RestaurantsController {
   }
 
   @Get()
-  findAll() {
-    return this.restaurantsService.findAll()
+  findAll(@Query() query) {
+    return this.restaurantsService.findAll(query)
   }
 
   @Get(":id")

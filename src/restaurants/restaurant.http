@@ -22,6 +22,14 @@ Content-Type: application/json
 GET {{url}}/restaurants
 Content-Type: application/json
 
+### 이름 검색으로 식당 필터링
+GET {{url}}/restaurants?search=식당
+Content-Type: application/json
+
+### 페이지네이션
+GET {{url}}/restaurants?start=0&limit=1
+Content-Type: application/json
+
 ### ID를 통해 식당 단건 조회
 GET {{url}}/restaurants/{{restaurant_id}}
 Content-Type: application/json

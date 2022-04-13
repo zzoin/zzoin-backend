@@ -22,8 +22,17 @@ export class RestaurantsService {
     }
   }
 
-  async findAll() {
+  async findAll(query) {
+    const { search, start, limit } = query
+
     return this.prisma.restaurant.findMany({
+      where: {
+        name: {
+          contains: search,
+        },
+      },
+      skip: Number(start),
+      take: Number(limit),
       select: {
         id: true,
         name: true,
